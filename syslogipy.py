@@ -1,20 +1,20 @@
 #!/usr/bin/env python
 
-"""Syslogger is a configurable daemon for converting apps that use
+"""Syslogipy is a configurable daemon for converting apps that use
 non-standard logging facilities to use the unix standard syslog. It
 can trace individual files or watch a directory.
 
 To use it, you must create a config file and pass it to the run_config
-function. Syslogger will then handle the rest, creating objects to log
+function. Syslogipy will then handle the rest, creating objects to log
 the targets to syslog according to the configuration. If directory or
 trace logging is used, the program will continue to log according to
 the configuration until a KeyboardInterrupt or SIGINT is received.
 
-A sample script using Syslogger may look like:
+A sample script using Syslogipy may look like:
 
 #!/usr/bin/env python
-import syslogger
-syslogger.run_config("mine.conf")
+import syslogipy
+syslogipy.run_config("mine.conf")
 
 """
 __version__ = "0.9.0"
@@ -115,6 +115,7 @@ class FileSyslogger(object):
         self.p = syslog.LOG_INFO | syslog.LOG_LOCAL7
 
     def run(self):
+        """Perform file logging."""
         syslog.openlog(str(self.file), 0, self.p)
         if self.mode == 'o':
             self.__log_file()
